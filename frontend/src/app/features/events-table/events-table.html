@@ -1,0 +1,32 @@
+<table *ngIf="events?.length; else empty" class="events-table">
+  <thead>
+    <tr>
+      <th>Time</th>
+      <th>Vehicle</th>
+      <th>Level</th>
+      <th>Code</th>
+      <th>Message</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let e of events">
+      <td>{{ e.timestamp | date:'short' }}</td>
+      <td>{{ e.vehicleId }}</td>
+   <td [ngClass]="{
+      'error': e.level === 'ERROR',
+      'warn': e.level === 'WARN',
+      'info': e.level === 'INFO'
+    }">
+  {{ e.level }}
+</td>
+ 
+      <td>{{ e.code }}</td>
+    <td>{{ e.message }}</td> 
+    </tr>
+  </tbody>
+</table>
+
+<ng-template #empty>
+  <p>No events found.</p>
+</ng-template>
+
